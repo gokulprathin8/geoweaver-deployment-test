@@ -17,19 +17,18 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v2
       with:
-        java-version: '11'
-        distribution: 'adopt'
+        java-version: '11'  # Change this to your desired Java version
+        distribution: 'adopt'  # Specify the Java distribution, e.g., 'adopt', 'openjdk', 'corretto'
         
     - name: Build Spring Boot application
       run: |
         ./mvnw clean install
-      working-directory: ./your-spring-boot-app-directory  # Replace with your actual app directory
         
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       with:
-        files: ./your-spring-boot-app-directory/target/geoweaver.jar  # Replace with your JAR file path
+        files: ./geoweaver.jar  # Updated to the correct JAR file path
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
@@ -46,4 +45,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: release-jar
-        path: ./your-spring-boot-app-directory/target/geoweaver.jar  # Replace with your JAR file path
+        path: ./geoweaver.jar  # Updated to the correct JAR file path
