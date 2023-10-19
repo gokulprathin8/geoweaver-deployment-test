@@ -38,12 +38,6 @@ jobs:
     steps:
     - name: Install XML parsing tools
       run: sudo apt install libxml2-utils
-
-    - name: Extract version from pom.xml
-      run: |
-        # Assuming pom.xml is in the root directory of your downloaded artifacts
-        VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
     
     - name: Download Geoweaver Artifacts
       uses: actions/download-artifact@v2
@@ -67,6 +61,12 @@ jobs:
           echo "TAG_NAME=latest" >> $GITHUB_ENV
         fi
       shell: bash
+
+    - name: Extract version from pom.xml
+      run: |
+        # Assuming pom.xml is in the root directory of your downloaded artifacts
+        VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Set Release Name
       id: set_release_name
