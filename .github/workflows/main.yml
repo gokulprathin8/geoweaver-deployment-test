@@ -33,7 +33,7 @@ jobs:
         
     - name: Set Release Title
       run: |
-        echo "::set-env name=RELEASE_TITLE::Geoweaver Release - ${{ github.ref_name }} - $(date +'%Y-%m-%d %H:%M:%S')"
+        echo "::set-env name=RELEASE_TITLE::Geoweaver Release"
       
     - name: Attach Release Title
       uses: actions/upload-artifact@v2
