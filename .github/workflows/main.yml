@@ -1,4 +1,4 @@
-name: Build and Publish Spring Boot App
+name: Build and Publish Geoweaver App
 
 on:
   push:
