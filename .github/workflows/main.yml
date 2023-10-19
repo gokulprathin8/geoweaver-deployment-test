@@ -27,9 +27,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: geoweaver-artifacts
-        path: |
-          target/*.jar
-          target/*.war
+        path: target/*.jar
 
   release:
     needs: build
@@ -79,18 +77,8 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: target/geoweaver.jar
+        asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/geoweaver.jar
         asset_name: geoweaver.jar
-        asset_content_type: application/java-archive
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
-
-    - name: Upload WAR Asset
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: target/geoweaver.war
-        asset_name: geoweaver.war
         asset_content_type: application/java-archive
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
