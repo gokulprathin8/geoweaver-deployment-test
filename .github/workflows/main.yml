@@ -18,10 +18,6 @@ jobs:
         distribution: 'adopt'
 
     - run: |
-        # Specify your default directory here
-        cd default-directory
-
-    - run: |
         ./mvnw clean install
       working-directory: .  # Use the current directory, which is now the default directory
 
