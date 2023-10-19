@@ -17,22 +17,13 @@ jobs:
         java-version: '11'  # Change this to your desired Java version
         distribution: 'adopt'
 
-    - name: Check for geoweaver-app directory
-      run: |
-        if [ -d "geoweaver-app" ]; then
-          echo "geoweaver-app directory exists."
-          cd geoweaver-app
-        else
-          echo "geoweaver-app directory does not exist. Using the default directory."
-          # You can specify your default directory here
-          cd default-directory
-        fi
-      shell: bash
+    - run: |
+        # Specify your default directory here
+        cd default-directory
 
-    - name: Build Spring Boot application
-      run: |
+    - run: |
         ./mvnw clean install
-      working-directory: .  # Use the current directory, which should be geoweaver-app or the default directory
+      working-directory: .  # Use the current directory, which is now the default directory
 
     - name: Create Release
       id: create_release
