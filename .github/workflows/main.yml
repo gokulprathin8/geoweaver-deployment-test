@@ -32,7 +32,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Set Release Title
-      run: echo "Release Title: Geoweaver Release - $(date +'%Y-%m-%d %H:%M:%S')" > release_title.txt
+      run: echo "Release Title" > release_title.txt
       
     - name: Attach Release Title
       uses: actions/upload-artifact@v2
