@@ -1,28 +1,26 @@
-name: Build and Release
+name: Manual Build and Release
 
 on:
-  push:
-    tags:
-      - 'release-tag-prod'
+  workflow_dispatch:  # This event allows manual triggering of the workflow
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Set up Java
       uses: actions/setup-java@v2
       with:
         java-version: '11'  # Change this to your desired Java version
-        
+
     - name: Build Spring Boot application
       run: |
         ./mvnw clean install
       working-directory: ./geoweaver-app  # Updated to geoweaver-app
-        
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -30,19 +28,3 @@ jobs:
         files: ./geoweaver-app/target/geoweaver.jar  # Updated to the correct JAR file path
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Set Release Title
-      run: |
-        echo "::set-env name=RELEASE_TITLE::Geoweaver Release"
-      
-    - name: Attach Release Title
-      uses: actions/upload-artifact@v2
-      with:
-        name: release-title
-        path: ${{ env.RELEASE_TITLE }}
-      
-    - name: Attach Release Jar
-      uses: actions/upload-artifact@v2
-      with:
-        name: release-jar
-        path: ./geoweaver-app/target/geoweaver.jar  # Updated to the correct JAR file path
