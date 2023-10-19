@@ -18,6 +18,16 @@ jobs:
         distribution: 'adopt'
 
     - run: |
+        # Check if the 'mvnw' script exists in the root directory
+        if [ -f mvnw ]; then
+          echo "'mvnw' script found in the root directory."
+          chmod +x mvnw
+        else
+          echo "'mvnw' script not found. Make sure it exists in the root directory."
+          exit 1  # Exit the workflow with an error
+        fi
+
+    - run: |
         ./mvnw clean install
       working-directory: .  # Use the current directory, which is now the default directory
 
