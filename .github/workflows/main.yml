@@ -32,13 +32,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Set Release Title
-      run: echo "Release Title: Geoweaver Release - $(date +'%Y-%m-%d %H:%M:%S')" > release_title.txt
+      run: |
+        echo "::set-env name=RELEASE_TITLE::Geoweaver Release - ${{ github.ref_name }} - $(date +'%Y-%m-%d %H:%M:%S')"
       
     - name: Attach Release Title
       uses: actions/upload-artifact@v2
       with:
         name: release-title
-        path: release_title.txt
+        path: ${{ env.RELEASE_TITLE }}
       
     - name: Attach Release Jar
       uses: actions/upload-artifact@v2
