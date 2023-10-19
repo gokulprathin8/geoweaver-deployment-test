@@ -1,77 +1,47 @@
-name: Build and Publish Spring Boot App
+name: Build and Release
 
 on:
   push:
     tags:
-      - '*'
-  workflow_dispatch:
+      - 'release-tag-prod'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up JDK 11
+      
+    - name: Set up Java
       uses: actions/setup-java@v2
       with:
-        java-version: '11'
-        distribution: 'adopt'
-
-    - name: Build with Maven
-      run: mvn clean install -DskipTests
-
-    - name: Upload Geoweaver Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: geoweaver-artifacts
-        path: target/*.jar
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Download Geoweaver Artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: geoweaver-artifacts
-
-    - name: Extract Commit Message
-      run: echo "COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})" >> $GITHUB_ENV
-
-    - name: Determine Tag Name
-      id: determine_tag_name
+        java-version: '11'  # Change this to your desired Java version
+        
+    - name: Build Spring Boot application
       run: |
-        if [[ -n "${{ github.ref }}" && "${{ github.ref }}" == refs/tags/* ]]; then
-          echo "TAG_NAME=$(echo "${{ github.ref }}" | sed 's@refs/tags/@@')" >> $GITHUB_ENV
-        else
-          echo "TAG_NAME=default-tag-name" >> $GITHUB_ENV
-        fi
-      shell: bash
-
-    - name: Set Release Name
-      id: set_release_name
-      run: echo "RELEASE_NAME=Released at $(date +\%Y-\%m-\%d)" >> $GITHUB_ENV
-
-    - name: Create GitHub Release
+        ./mvnw clean install
+      working-directory: ./geoweaver-app  # Updated to geoweaver-app
+        
+    - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ env.TAG_NAME }}
-        release_name: ${{ env.RELEASE_NAME }}
-        body: Description of the release
-        draft: false
-        prerelease: false
+        files: ./geoweaver-app/target/geoweaver.jar  # Updated to the correct JAR file path
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
-    - name: Upload JAR Asset
-      uses: actions/upload-release-asset@v1
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Set Release Title
+      run: echo "Release Title: Geoweaver Release - $(date +'%Y-%m-%d %H:%M:%S')" > release_title.txt
+      
+    - name: Attach Release Title
+      uses: actions/upload-artifact@v2
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./geoweaver.jar
-        asset_name: geoweaver.jar
-        asset_content_type: application/java-archive
+        name: release-title
+        path: release_title.txt
+      
+    - name: Attach Release Jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-jar
+        path: ./geoweaver-app/target/geoweaver.jar  # Updated to the correct JAR file path
