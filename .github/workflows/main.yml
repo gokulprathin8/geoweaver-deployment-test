@@ -67,6 +67,7 @@ jobs:
       with:
         tag_name: ${{ env.TAG_NAME }}
         release_name: ${{ env.RELEASE_NAME }}
+        body: ${{ env.COMMIT_MESSAGE }}
         draft: false
         prerelease: false
       env:
