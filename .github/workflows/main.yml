@@ -15,6 +15,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'  # Change this to your desired Java version
+        distribution: 'adopt'
 
     - name: Build Spring Boot application
       run: |
