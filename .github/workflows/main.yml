@@ -39,9 +39,9 @@ jobs:
       with:
         name: geoweaver-artifacts
 
-    - name: List Absolute Artifact Paths
+    - name: List All Files in Workspace
       run: |
-        find "$(pwd)/geoweaver-artifacts" -type f
+        find "$GITHUB_WORKSPACE" -type f
       shell: bash
 
     - name: Extract Commit Message
