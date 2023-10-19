@@ -39,6 +39,11 @@ jobs:
       with:
         name: geoweaver-artifacts
 
+    - name: List Absolute Artifact Paths
+      run: |
+        find "$(pwd)/geoweaver-artifacts" -type f
+      shell: bash
+
     - name: Extract Commit Message
       run: echo "COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})" >> $GITHUB_ENV
 
