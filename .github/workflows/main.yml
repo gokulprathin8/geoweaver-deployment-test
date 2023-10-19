@@ -80,3 +80,5 @@ jobs:
         asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/geoweaver.jar
         asset_name: geoweaver.jar
         asset_content_type: application/java-archive
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
