@@ -1,0 +1,347 @@
+.nav-side-menu {
+  overflow-y: scroll;
+  font-family: Roboto,sans-serif;
+  font-size: 18px;
+  font-weight: 200;
+  background-color: white;
+  /* position: fixed; */
+  top: 0px;
+  height: calc( 100% - 50px);
+  /* width: 100%;
+  height: 100%; 
+  min-width: 300px;*/
+  color: #e1ffff;
+}
+.nav-side-menu .brand {
+  background-color: white;
+  line-height: 50px;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+}
+
+.small-height {
+	
+	height: calc(100vh - 50px);
+  /* position: fixed; */
+  z-index: 1;
+  overflow-x: hidden;
+  transition: 0.3s;
+	
+}
+
+.menu-show {
+
+  transition: 1s transform ease-in-out;
+
+}
+
+/* search bar */
+.search-form{
+  position: relative;
+  padding: 5px;
+}
+
+.search-form .fa-search{
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  color: #9ca3af;
+}
+
+.search-form .fa-times-circle{
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #4f5b69;
+  visibility: hidden;
+}
+
+.search-form-input{
+  height: 30px;
+  text-indent: 33px;
+  border-radius: 10px;
+}
+
+.search-form-input:focus{
+  box-shadow: none;
+}
+
+/* end of search bar */
+
+.nav-side-menu .toggle-btn {
+  display: none;
+}
+.nav-side-menu ul,
+.nav-side-menu li {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  line-height: 35px;
+  cursor: pointer;
+  /*    
+    .collapsed{
+       .arrow:before{
+                 font-family: FontAwesome;
+                 content: "\f053";
+                 display: inline-block;
+                 padding-left:10px;
+                 padding-right: 10px;
+                 vertical-align: middle;
+                 float:right;
+            }
+     }
+*/
+}
+
+
+.subalignicon {
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.right-button-vertical-center {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.nav-side-menu ul :not(collapsed) .arrow:before,
+.nav-side-menu li :not(collapsed) .arrow:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f078";
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  float: right;
+}
+
+
+
+.nav-side-menu ul .active,
+.nav-side-menu li .active {
+  color: white;
+  border-left: 3px solid #d19b3d;
+  background-color: #4f5b69;
+}
+.nav-side-menu ul .sub-menu li.active,
+.nav-side-menu li .sub-menu li.active {
+  color: #d19b3d;
+}
+.nav-side-menu ul .sub-menu li.active a,
+.nav-side-menu li .sub-menu li.active a {
+  color: #d19b3d;
+}
+
+.nav-side-menu ul .sub-menu li,
+.nav-side-menu li .sub-menu li {
+  background-color: #d5d5d5;
+  color: black;
+  border: none;
+  line-height: 28px;
+  margin-left: 0px;
+}
+
+.nav-side-menu ul .sub-menu .process,
+.nav-side-menu ul .sub-menu .host{
+  background-color: #505050;
+  color: white;
+}
+
+.nav-side-menu ul .sub-menu li:hover,
+.nav-side-menu li .sub-menu li:hover {
+  background-color: #999;
+  color: #019;
+}
+
+.nav-side-menu li {
+  padding-left: 0px;
+  background-color: white;
+}
+.nav-side-menu li a {
+  text-decoration: none;
+  color: black;
+  width: -webkit-calc(100% - 100px);
+  width:    -moz-calc(100% - 100px);
+  width:         calc(100% - 100px);
+}
+.nav-side-menu li a i {
+  padding-left: 10px;
+  width: 20px;
+  line-height:35px;
+  padding-right: 20px;
+}
+
+.nav-side-menu li:hover {
+  background-color: #999;
+  color: white;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+ul .sub-menu {
+
+  padding-left: 0px;
+
+}
+
+/*.nav-side-menu ul .sub-menu li:before,
+.nav-side-menu li .sub-menu li:before {
+  font-family: FontAwesome;
+  content: "\f105";
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+}*/
+
+.jupyterserver:before {
+	
+  font-family: "Font Awesome 5 Brands"  !important;
+  content: "\f3e2"  !important;
+  font-weight: 900;
+	color: black;
+}
+
+.sshserver:before {
+	
+  font-family: "Font Awesome 5 Brands" !important; 
+  font-weight: 400 !important;
+  content: "\f17c" !important;
+	color: black;
+}
+
+.jupyterhubserver:before {
+	
+  font-family: "Font Awesome 5 Brands"  !important;
+  content: "\f3e2"  !important;
+	color: black;
+	
+}
+
+.jupyterlabserver:before {
+	
+  font-family: "Font Awesome 5 Brands"  !important;
+  content: "\f3e2"  !important;
+	color: black;
+	
+}
+
+.geeserver:before {
+	
+  font-family: "Font Awesome 5 Free"  !important;
+  content: "\f57d"  !important;
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 900;
+	color: black;
+}
+
+.shellfolder:before{
+	
+  font-family: "Font Awesome 5 Free"  !important;
+  content: "\f70e"  !important;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 900;
+	color: black;
+}
+
+.pythonfolder:before{
+  
+  font-family: "Font Awesome 5 Brands"  !important;
+  content: "\f3e2"  !important;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 900;
+	color: black;
+}
+
+.notebookfolder:before{
+	
+  font-family: "Font Awesome 5 Free"  !important;
+  content: "\f518"  !important;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 900;
+	color: black;
+}
+
+.builtinfolder:before{
+	
+  font-family: "Font Awesome 5 Free"  !important;
+  content: "\f1ad"  !important;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 900;
+	color: black;
+}
+
+.workflow:before {
+  font-family: "Font Awesome 5 Brands"  !important;
+  content: "\f18c";
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 900;
+  color: black;
+}
+
+.folder:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f07b";
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
+  color: black;
+}
+
+.nav-side-menu .menu-list .menu-content {
+    display: block;
+}
+
+@media (min-width: 267px){
+	
+	.col-sm-3 {
+	    width: 25%;
+	}
+}
+
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+.form-group.required .control-label:after {
+  content:" *";color:red;
+}
+
+.ssh-dialog {
+	
+	width: 100%;
+	
+	height: 100%;
+	
+}
+
+.CodeMirror { border: none; }
+.CodeMirror-empty { outline: 1px solid #c22; }
+.CodeMirror-empty.CodeMirror-focused { outline: none; }
+.CodeMirror pre.CodeMirror-placeholder { color: #999; }

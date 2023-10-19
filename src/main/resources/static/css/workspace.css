@@ -1,0 +1,127 @@
+/* body{
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+}
+
+p{ 
+     text-align: center; 
+     overflow: overlay;
+     position: relative;
+} */
+
+body{
+    /*-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;*/
+    background-color: rgb(255, 255, 255);
+    overflow:hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#toolbox{
+    border-bottom: 2px solid grey;
+    border-right: 2px solid grey;
+    border-bottom-right-radius: 10px;
+    /* border-radius: 3px; */
+    z-index: 5;
+    position: absolute; 
+    background-color: white; 
+    opacity: 1; 
+    margin:0; 
+    top: 0px; 
+    left: 0px;  
+    /* box-shadow:3px 3px grey; */
+}
+
+#toolbox input{
+    width: 20px;
+    opacity: 0.4;
+}
+#toolbox input:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+#hidden-file-upload{
+    display: none;
+}
+
+.conceptG text{
+    pointer-events: none;
+}
+
+marker{
+    fill: #333;
+}
+
+g.conceptG circle{
+    fill: white;
+    stroke: #000000;
+}
+
+g.conceptG:hover circle{
+    stroke: #000000;
+    stroke-width: 5px;
+}
+
+g.selected circle{
+    stroke: #000000;
+    stroke-width: 5px;
+}
+g.selected:hover circle{
+    stroke: #000000;
+    stroke-width: 8px;
+}
+
+path.link {
+    fill: none;
+    stroke: grey;
+    stroke-width: 3px;
+    cursor: default;
+}
+
+path.link:hover{
+    stroke: rgb(94, 196, 204);
+}
+
+g.connect-node circle{
+    fill: #BEFFFF;
+}
+
+path.link.hidden{
+    stroke-width: 0;
+}
+
+path.link.selected {
+    stroke: rgb(229, 172, 247);
+}
+
+.black-background {
+	background-color:#000000;
+}
+.white {color:#ffffff;}
+
+div.processtooltip {	
+    position: absolute;			
+    text-align: left;	
+    width: 300px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #333;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;	
+}
+
+div.processtooltip table tr td {
+
+    padding: 5px;
+    border-bottom-style: dotted;
+
+}

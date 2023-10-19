@@ -1,0 +1,427 @@
+
+
+body {
+	padding-bottom: 2rem;
+}
+
+nav {
+	border-top: 4px solid #28a745;
+}
+
+nav li.active {
+	border-bottom: 4px solid #28a745;	
+}
+
+.row {
+	margin-bottom: 1rem;
+}
+[class*="col-"] {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+hr {
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+.progress {
+	height: 1.5rem;
+}
+
+#files {
+    overflow-y: scroll !important;
+    min-height: 320px;
+}
+@media (min-width: 768px) {
+	#files {
+		min-height: 0;
+	}
+}
+
+#debug {
+	overflow-y: scroll !important;
+	height: 180px;	
+}
+
+/* These are for the single examle */
+.preview-img {
+	width: 64px;
+	height: 64px;
+}
+
+form {
+	border: solid #f7f7f9 !important;
+	padding: 1.5rem
+}
+
+form.active {
+	border-color: red !important;
+}
+
+form .progress {
+	height: 38px;
+}
+
+.dm-uploader {
+	border: 0.25rem dashed #A5A5C7;
+}
+.dm-uploader.active {
+	border-color: red;
+
+	border-style: solid;
+}
+
+ /* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: rgb(206, 206, 206); /* Black background color */
+
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 5%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.bare-window {
+  padding:0;
+  margin:0;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+} 
+
+.tab {
+  overflow: hidden;
+  border-bottom: 1px solid rgb(116, 115, 115);
+  background-color: rgb(255, 255, 255);
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: none;
+  border: none ;
+  outline: none;
+  cursor: pointer;
+  /* padding: 3px 3px; */
+  transition: 0.3s;
+  font-size: 18px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: rgb(218, 218, 218);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: rgb(204, 204, 204);
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px; 
+  /* border: 1px solid #ccc; */
+  border-top: none;
+}
+
+#process-history-chart-container {
+
+  width: 200px;
+  height: 100px;
+
+}
+
+.subtab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.subtab button{
+
+  background-color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  /* padding: 3px 3px; */
+  transition: 0.3s;
+  font-size: 18px;
+  
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+}
+
+/* Change background color of buttons on hover */
+.subtab button:hover {
+  background-color: rgb(169, 171, 250);
+}
+
+/* Create an active/current tablink class */
+.subtab button.active {
+  background-color: rgb(193, 195, 201);
+}
+
+.toptoolbarbtn {
+
+  font-family: Roboto,sans-serif;
+  text-align: center; 
+  transition: all 0.3s ease;
+  color: rgb(0, 0, 0);
+  /* font-size: 24px; */
+  height: 50px;
+  float: left;
+
+}
+
+.loginbtn {
+
+  float: right;
+  margin-right: 20px;
+  font-family: Roboto,sans-serif;
+}
+
+.weaver-toolbar-btn {
+
+  color:gray; 
+  padding:0; 
+  margin:0;
+  margin-top:5px; 
+  width: 30px;
+  margin: 5px;
+  /* display: block; */
+  text-align: center;
+  transition: all 0.3s ease;
+
+}
+
+/**
+ * ==============================================
+ * Dot Flashing
+ * ==============================================
+ */
+ .dot-flashing {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #b8b8b8;
+  color: #b8b8b8;
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: .5s;
+  margin: 0 auto;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #3a3a3a;
+  color: #3a3a3a;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #3a3a3a;
+  color: #3a3a3a;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+  0% {
+    background-color: #3a3a3a;
+  }
+  50%,
+  100% {
+    background-color: #f7f6fc;
+  }
+}
+
+.generalshadow {
+  /* box-shadow: rgba(0, 0, 0, 0.4) 2px 1px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px 0px, rgba(0, 0, 0, 0.2) 2px 1px 0px inset; */
+  box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.titleshadow {
+  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* render scrollbar color */
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(28, 28, 28);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(218, 218, 218);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(28, 28, 28);
+  border-radius: 20px;
+  border: 3px solid rgb(177, 177, 177);
+}
+
+.table-color {
+  background-color: rgb(28, 28, 28); 
+  color: rgb(211, 211, 211);
+  /* padding: 5px; */
+}
+
+.table-color tbody tr td {
+
+  background-color: rgb(28, 28, 28); 
+
+}
+
+.code__container {
+  display: flex;
+
+  /* Misc */
+  border: 1px solid #cbd5e0;
+  height: 16rem;
+  width: 100%;
+}
+
+.container__left {
+  /* Initially, the left takes 3/4 width */
+  width: 60%;
+
+  /* Misc */
+  /* align-items: center; */
+  display: flex;
+  /* justify-content: center; */
+}
+
+.container__right {
+  /* Take the remaining width */
+  flex: 1;
+  padding: 10px;
+  /* Misc */
+  /* align-items: center; */
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+.resizer {
+  background-color: #cbd5e0;
+  cursor: ew-resize;
+  height: 100%;
+  width: 2px;
+}
+
+.fullscreen {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  border: 0px solid #BBBBBB;
+  opacity: 1;
+}
+
+.log_window {
+  border-radius: 10px;
+  background: #333333;
+  padding: 10px;
+  color: white;
+}
+
+.side_menu_collapse_btn {
+
+  position: absolute;
+  border: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 1px 4px 1px rgba(0 ,0, 0, .3);
+  left: 100%;
+  top: 50%;
+  z-index: 999;
+  transform: translateX(-50%);
+  cursor: pointer;
+
+}
+
+.workspace_collapse_btn {
+
+  position: absolute;
+  border: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 1px 4px 1px rgba(0 ,0, 0, .3);
+  left: 0;
+  top: 50%;
+  z-index: 999;
+  visibility: hidden;
+  transform: translateX(-50%);
+  cursor: pointer;
+
+}

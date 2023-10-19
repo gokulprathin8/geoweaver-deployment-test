@@ -1,0 +1,9 @@
+{
+    "type":"process",
+    "lang":"python",
+    "description":"python",
+    "name":"testpython2",
+    "code":"print(\"hello world\")",
+    "owner":"111111",
+    "confidential":"FALSE"
+ }
