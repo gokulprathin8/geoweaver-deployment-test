@@ -1,5 +1,5 @@
 #!/bin/bash
-java -jar /usr/local/bin/geoweaver-1.1.0.jar &
+java -jar /usr/local/bin/geoweaver.jar &
 SERVER_PID=$!
 
 # Wait for the server to start (adjust the time as needed)
