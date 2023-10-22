@@ -46,19 +46,19 @@ jobs:
 
       - name: Extract version from pom.xml
         run: |
-          # Assuming pom.xml is in the root directory of your downloaded artifacts
           VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Determine Tag Name
-        id: determine_tag_name
+      - name: Update Release
         run: |
-          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
-            echo "TAG_NAME=$(echo "${{ github.ref }}" | sed 's@refs/tags/@@')" >> $GITHUB_ENV
-          else
-            echo "TAG_NAME=latest" >> $GITHUB_ENV
-          fi
-        shell: bash
+          # This will use the GitHub API to update the release tag and name.
+          # Note: This doesn't actually move the Git tag. This only changes the tag on the release.
+          curl -s -H "Authorization: token ${{ secrets.PAT }}" -X PATCH \
+            -d '{
+              "tag_name": "latest",
+              "name": "${{ env.VERSION }}"
+            }' \
+            "https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}"
 
       - name: Upload JAR Asset
         uses: actions/upload-release-asset@v1
