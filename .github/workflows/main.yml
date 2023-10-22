@@ -43,6 +43,9 @@ jobs:
       - name: Copy geoweaver.jar to linux-deployment directory
         run: cp $GITHUB_WORKSPACE/target/geoweaver.jar $GITHUB_WORKSPACE/linux-deployment/usr/local/bin/
 
+      - name: Make geoweaver.sh executable
+        run: chmod +x $GITHUB_WORKSPACE/linux-deployment/usr/local/bin/geoweaver.sh
+
       - name: Build deb package
         run: |
           cd $GITHUB_WORKSPACE/linux-deployment
