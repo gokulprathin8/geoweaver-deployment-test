@@ -3,4 +3,3 @@ Architecture: all
 Maintainer: Geoweaver team <geoweaver.app@gmail.com> 
 Description: Geoweaver
 Depends: openjdk-11-jre
-
