@@ -52,12 +52,21 @@ jobs:
           VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Get upload URL of the latest release
-        id: get_upload_url
+      - name: Get ID and upload URL of the latest release
         run: |
-          UPLOAD_URL=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r .upload_url)
+          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/${{ github.repository }}/releases/latest")
+          UPLOAD_URL=$(echo "$RESPONSE" | jq -r .upload_url)
+          RELEASE_ID=$(echo "$RESPONSE" | jq -r .id)
           echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+
+      - name: Set release title to version
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.PAT }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }} \
+            -d '{"name": "${{ env.VERSION }}"}'
 
       - name: Upload JAR Asset
         uses: actions/upload-release-asset@v1
