@@ -6,6 +6,7 @@ on:
       - published
     tags:
       - '*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,6 +24,14 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
+      - name: Copy geoweaver.jar to linux-deployment directory
+        run: cp $GITHUB_WORKSPACE/target/geoweaver.jar $GITHUB_WORKSPACE/linux-deployment/usr/local/bin/
+
+      - name: Build deb package
+        run: |
+          cd $GITHUB_WORKSPACE/linux-deployment
+          dpkg-deb --build .
+
       - name: Upload Geoweaver Artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -30,6 +39,7 @@ jobs:
           path: |
             target/*.jar
             pom.xml
+            linux-deployment/*.deb
 
   release:
     needs: build
@@ -72,8 +82,18 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ env.UPLOAD_URL }}
-          asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/target/geoweaver.jar
+          asset_path: $GITHUB_WORKSPACE/target/geoweaver.jar
           asset_name: geoweaver.jar
           asset_content_type: application/java-archive
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: Upload DEB Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ env.UPLOAD_URL }}
+          asset_path: $GITHUB_WORKSPACE/linux-deployment/geoweaver.deb  # adjust if the name is different
+          asset_name: geoweaver.deb
+          asset_content_type: application/vnd.debian.binary-package
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
