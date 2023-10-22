@@ -39,6 +39,9 @@ jobs:
       - name: Install XML parsing tools
         run: sudo apt install libxml2-utils
 
+      - name: Install jq
+        run: sudo apt-get install jq
+
       - name: Download Geoweaver Artifacts
         uses: actions/download-artifact@v2
         with:
@@ -49,21 +52,17 @@ jobs:
           VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Update Release
+      - name: Get upload URL of the latest release
+        id: get_upload_url
         run: |
-          # This will use the GitHub API to update the release tag and name.
-          # Note: This doesn't actually move the Git tag. This only changes the tag on the release.
-          curl -s -H "Authorization: token ${{ secrets.PAT }}" -X PATCH \
-            -d '{
-              "tag_name": "latest",
-              "name": "${{ env.VERSION }}"
-            }' \
-            "https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}"
+          UPLOAD_URL=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r .upload_url)
+          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
 
       - name: Upload JAR Asset
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ env.UPLOAD_URL }}
           asset_path: $GITHUB_WORKSPACE/target/geoweaver.jar
           asset_name: geoweaver.jar
           asset_content_type: application/java-archive
