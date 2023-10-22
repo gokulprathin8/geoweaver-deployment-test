@@ -36,7 +36,9 @@ jobs:
       - name: Append version to DEBIAN/control
         run: |
           echo "Version: ${{ env.VERSION }}" >> $GITHUB_WORKSPACE/linux-deployment/DEBIAN/control
-
+          
+      - name: Set execute permissions for postinst script
+        run: chmod 755 $GITHUB_WORKSPACE/linux-deployment/DEBIAN/postinst
 
       - name: Build deb package
         run: |
