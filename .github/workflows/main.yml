@@ -3,7 +3,7 @@ name: Build and Publish Geoweaver App
 on:
   release:
     types:
-      - created
+      - published
   workflow_dispatch:
 
 jobs:
