@@ -4,7 +4,9 @@ on:
   release:
     types:
       - published
-
+      - created
+    tags:
+      - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
