@@ -25,6 +25,9 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
+      - name: Install XML parsing tools
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
       - name: Extract version from pom.xml
         run: |
           VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
