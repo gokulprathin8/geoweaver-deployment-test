@@ -33,9 +33,10 @@ jobs:
           VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" $GITHUB_WORKSPACE/pom.xml)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Update DEBIAN/control with version
+      - name: Append version to DEBIAN/control
         run: |
-          sed -i "s/<version from pom.zml>/${{ env.VERSION }}/g" $GITHUB_WORKSPACE/linux-deployment/DEBIAN/control
+          echo "Version: ${{ env.VERSION }}" >> $GITHUB_WORKSPACE/linux-deployment/DEBIAN/control
+
 
       - name: Build deb package
         run: |
