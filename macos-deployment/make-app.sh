@@ -2,7 +2,7 @@
 
 APP_NAME="Geoweaver"
 REPO_NAME="geoweaver-deployment-test"
-APP_DIR="/Users/gokulprathin/Desktop/Geoweaver-OSX-App/${APP_NAME}.app"
+APP_DIR="/home/runner/work/${REPO_NAME}/${APP_NAME}.app"
 JAR_PATH="/home/runner/work/${REPO_NAME}/${REPO_NAME}/target/geoweaver.jar"
 ICON_PATH="/home/runner/work/${REPO_NAME}/${REPO_NAME}/linux-deployments/usr/local/bin/geoweaver.png"
 
