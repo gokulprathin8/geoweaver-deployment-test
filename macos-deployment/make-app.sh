@@ -2,9 +2,9 @@
 
 APP_NAME="Geoweaver"
 REPO_NAME="geoweaver-deployment-test"
-APP_DIR="/Users/runner/work/${REPO_NAME}/${APP_NAME}.app"
-JAR_PATH="/Users/runner/work/${REPO_NAME}/${REPO_NAME}/target/geoweaver.jar"
-ICON_PATH="/Users/runner/work/${REPO_NAME}/${REPO_NAME}/linux-deployments/usr/local/bin/geoweaver.png"
+APP_DIR="${GITHUB_WORKSPACE}/${APP_NAME}.app"
+JAR_PATH="${GITHUB_WORKSPACE}/${REPO_NAME}/target/geoweaver.jar"
+ICON_PATH="${GITHUB_WORKSPACE}/${REPO_NAME}/linux-deployments/usr/local/bin/geoweaver.png"
 
 mkdir -p "${APP_DIR}/Contents/MacOS"
 mkdir -p "${APP_DIR}/Contents/Resources"
