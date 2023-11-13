@@ -84,11 +84,14 @@ jobs:
           chmod +x ${GITHUB_WORKSPACE}/macos-deployment/make-app.sh
           ${GITHUB_WORKSPACE}/macos-deployment/make-app.sh
 
-      - name: Create .dmg file
+      - name: Create .dmg file with Applications shortcut
         run: |
           APP_NAME="Geoweaver"
-          hdiutil create -volname "$APP_NAME" -srcfolder "${GITHUB_WORKSPACE}/geoweaver.app" -ov -format UDZO "${GITHUB_WORKSPACE}/${APP_NAME}.dmg"
-
+          DMG_TEMP_DIR="${GITHUB_WORKSPACE}/dmg_temp"
+          mkdir -p "${DMG_TEMP_DIR}"
+          cp -r "${GITHUB_WORKSPACE}/geoweaver.app" "${DMG_TEMP_DIR}"
+          ln -s /Applications "${DMG_TEMP_DIR}/Applications"
+          hdiutil create -volname "$APP_NAME" -srcfolder "${DMG_TEMP_DIR}" -ov -format UDZO "${GITHUB_WORKSPACE}/${APP_NAME}.dmg"
       - name: Upload .dmg file as an artifact
         uses: actions/upload-artifact@v2
         with:
