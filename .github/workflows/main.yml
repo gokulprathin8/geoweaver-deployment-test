@@ -93,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: geoweaver-dmg
-          path: ${GITHUB_WORKSPACE}/Geoweaver.dmg
+          path: /Users/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/Geoweaver.dmg
 
   release:
     needs: [build-jar, build-macos]
