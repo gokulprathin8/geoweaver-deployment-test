@@ -89,6 +89,11 @@ jobs:
           APP_NAME="Geoweaver"
           hdiutil create -volname "$APP_NAME" -srcfolder "${GITHUB_WORKSPACE}/geoweaver.app" -ov -format UDZO "${GITHUB_WORKSPACE}/${APP_NAME}.dmg"
 
+      - name: Upload .dmg file as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: geoweaver-dmg
+          path: ${GITHUB_WORKSPACE}/Geoweaver.dmg
 
   release:
     needs: [build-jar, build-macos]
@@ -105,6 +110,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: geoweaver-artifacts
+
+      - name: Download .dmg file
+        uses: actions/download-artifact@v2
+        with:
+          name: geoweaver-dmg
 
       - name: Get ID and upload URL of the latest release
         run: |
@@ -146,7 +156,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ env.UPLOAD_URL }}
-          asset_path: ${GITHUB_WORKSPACE}/Geoweaver.dmg
+          asset_path: Geoweaver.dmg
           asset_name: Geoweaver.dmg
           asset_content_type: application/x-diskcopy
         env:
