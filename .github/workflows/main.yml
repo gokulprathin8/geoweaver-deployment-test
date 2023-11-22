@@ -101,7 +101,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: geoweaver-windows-installer
-            path: ./GeoweaverInstaller.exe
+            path: D:\a\geoweaver-deployment-test\geoweaver-deployment-test\windows-deployment\GeoweaverInstaller.exe
   
   build-macos:
     needs: build-jar
