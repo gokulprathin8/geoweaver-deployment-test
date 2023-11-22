@@ -76,7 +76,6 @@ jobs:
   
         - name: Prepare Deployment Directory
           run: |
-            mkdir windows-deployment
             cp artifact/*.jar windows-deployment/geoweaver.jar
   
         - name: Install NSIS
