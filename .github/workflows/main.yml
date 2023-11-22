@@ -76,7 +76,7 @@ jobs:
   
         - name: Prepare Deployment Directory
           run: |
-            cp artifact/*.jar windows-deployment/geoweaver.jar
+            cp artifact/geoweaver.jar windows-deployment/geoweaver.jar
   
         - name: Install NSIS
           run: choco install nsis
