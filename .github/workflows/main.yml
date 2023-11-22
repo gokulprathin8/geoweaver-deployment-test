@@ -86,6 +86,12 @@ jobs:
   
         - name: Build Executable with PyInstaller
           run: pyinstaller windows-deployment/pyinstaller.spec
+
+        - name: List files
+          run: |
+            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\ && ls
+            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\dist && ls
+            cd D:\a\geoweaver-deployment-test\ && ls
   
         - name: Build NSIS Installer
           run: '& "C:\Program Files (x86)\NSIS\makensis.exe" windows-deployment/installer.nsi'
