@@ -101,9 +101,9 @@ jobs:
     needs: build-jar
     runs-on: macos-latest
 
-    # steps:
-    #   - name: Checkout code
-    #     uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
     #   - name: Download Geoweaver Artifacts
     #     uses: actions/download-artifact@v2
