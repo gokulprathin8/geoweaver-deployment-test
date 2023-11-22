@@ -16,7 +16,7 @@ Section "Install Geoweaver"
     SetOutPath $INSTDIR
 
     ; Include the files from the dist/geoweaver directory
-    File /r "D:\a\geoweaver-deployment-test\geoweaver-deployment-test\windows-deployment\dist\geoweaver\*.*"
+    File /r "D:\a\geoweaver-deployment-test\geoweaver-deployment-test\windows-deployment\dist\pyinstaller\*.*"
 
     ; Create a desktop shortcut
     CreateShortCut "$DESKTOP\Geoweaver.lnk" "$INSTDIR\geoweaver.exe" "" "$INSTDIR\_internal\geoweaver.ico"
