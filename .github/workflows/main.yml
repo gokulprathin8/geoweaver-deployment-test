@@ -24,7 +24,7 @@ jobs:
         run: |
           chmod +x mvnw  # Ensure the Maven wrapper has execution permissions
           ./mvnw test jacoco:report
-        working-directory: ${{ github.workspace }}/geoweaver-deployment-test
+        working-directory: ${{ github.workspace }}
 
       - name: Check Test Results
         run: |
