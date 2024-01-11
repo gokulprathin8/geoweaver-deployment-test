@@ -20,10 +20,11 @@ jobs:
           distribution: 'temurin'
           architecture: x64
 
-      - name: Run tests
+      - name: Run Tests
         run: |
-          ./mvn test jacoco:report
-        working-directory: .
+          chmod +x mvnw  # Ensure the Maven wrapper has execution permissions
+          ./mvnw test jacoco:report
+        working-directory: ${{ github.workspace }}/geoweaver-deployment-test
 
       - name: Check Test Results
         run: |
