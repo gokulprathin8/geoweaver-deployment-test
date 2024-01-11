@@ -84,56 +84,56 @@ jobs:
 #            pom.xml
 #          # linux-deployment/*.deb
 
-  build-windows:
-      needs: build-jar
-      runs-on: windows-latest
+#  build-windows:
+#      needs: build-jar
+#      runs-on: windows-latest
+#
+#      steps:
+#        - name: Checkout code
+#          uses: actions/checkout@v2
+#
+#        - name: Download Geoweaver Artifacts
+#          uses: actions/download-artifact@v2
+#          with:
+#            name: geoweaver-artifacts
+#            path: artifact
+#
+#        - name: Prepare Deployment Directory
+#          run: |
+#            cp artifact/target/geoweaver.jar windows-deployment/geoweaver.jar
+#
+#        - name: Install NSIS
+#          run: choco install nsis
+#
+#        - name: Install PyInstaller
+#          run: pip install pyinstaller
+#
+#        - name: Build Executable with PyInstaller
+#          run: pyinstaller windows-deployment/pyinstaller.spec
+#
+#        - name: List files
+#          run: |
+#            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\ && ls
+#            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\dist && ls
+#            cd D:\a\geoweaver-deployment-test\ && ls
+#            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\dist\geoweaver && ls
+#
+#        - name: Build NSIS Installer
+#          run: '& "C:\Program Files (x86)\NSIS\makensis.exe" windows-deployment/installer.nsi'
+#
+#        - name: Upload Windows Installer to Release
+#          uses: actions/upload-artifact@v2
+#          with:
+#            name: geoweaver-windows-installer
+#            path: D:\a\geoweaver-deployment-test\geoweaver-deployment-test\windows-deployment\GeoweaverInstaller.exe
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-
-        - name: Download Geoweaver Artifacts
-          uses: actions/download-artifact@v2
-          with:
-            name: geoweaver-artifacts
-            path: artifact
-
-        - name: Prepare Deployment Directory
-          run: |
-            cp artifact/target/geoweaver.jar windows-deployment/geoweaver.jar
-
-        - name: Install NSIS
-          run: choco install nsis
-
-        - name: Install PyInstaller
-          run: pip install pyinstaller
-
-        - name: Build Executable with PyInstaller
-          run: pyinstaller windows-deployment/pyinstaller.spec
-
-        - name: List files
-          run: |
-            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\ && ls
-            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\dist && ls
-            cd D:\a\geoweaver-deployment-test\ && ls
-            cd D:\a\geoweaver-deployment-test\geoweaver-deployment-test\dist\geoweaver && ls
-
-        - name: Build NSIS Installer
-          run: '& "C:\Program Files (x86)\NSIS\makensis.exe" windows-deployment/installer.nsi'
-
-        - name: Upload Windows Installer to Release
-          uses: actions/upload-artifact@v2
-          with:
-            name: geoweaver-windows-installer
-            path: D:\a\geoweaver-deployment-test\geoweaver-deployment-test\windows-deployment\GeoweaverInstaller.exe
-
-  build-macos:
-    needs: build-jar
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#  build-macos:
+#    needs: build-jar
+#    runs-on: macos-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
 
     #   - name: Download Geoweaver Artifacts
     #     uses: actions/download-artifact@v2
@@ -164,86 +164,86 @@ jobs:
     #     with:
     #       name: geoweaver-dmg
     #       path: /Users/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/Geoweaver.dmg
-
-  release:
-    needs: [build-jar, build-macos, build-windows]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install XML parsing tools
-        run: sudo apt install libxml2-utils
-
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Download Geoweaver Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: geoweaver-artifacts
-
-      - name: Download Windows Installer Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: geoweaver-windows-installer
-
-      # - name: Download .dmg file
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: geoweaver-dmg
-
-      - name: Get ID and upload URL of the latest release
-        run: |
-          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/${{ github.repository }}/releases/latest")
-          UPLOAD_URL=$(echo "$RESPONSE" | jq -r .upload_url)
-          RELEASE_ID=$(echo "$RESPONSE" | jq -r .id)
-          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
-          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
-
-      - name: Set release title to version
-        run: |
-          curl -X PATCH \
-            -H "Authorization: token ${{ secrets.PAT }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }} \
-            -d '{"name": "${{ env.VERSION }}"}'
-
-      - name: Upload JAR Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ env.UPLOAD_URL }}
-          asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/target/geoweaver.jar
-          asset_name: geoweaver.jar
-          asset_content_type: application/java-archive
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-
-      # - name: Upload DEB Asset
-      #   uses: actions/upload-release-asset@v1
-      #   with:
-      #     upload_url: ${{ env.UPLOAD_URL }}
-      #     asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/linux-deployment/geoweaver.deb
-      #     asset_name: geoweaver.deb
-      #     asset_content_type: application/vnd.debian.binary-package
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.PAT }}
-
-      - name: Upload Windows Installer to Release
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ env.UPLOAD_URL }}
-          asset_path: GeoweaverInstaller.exe
-          asset_name: GeoweaverInstaller.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-
-      # - name: Upload .dmg file to Release
-      #   uses: actions/upload-release-asset@v1
-      #   with:
-      #     upload_url: ${{ env.UPLOAD_URL }}
-      #     asset_path: Geoweaver.dmg
-      #     asset_name: Geoweaver.dmg
-      #     asset_content_type: application/x-diskcopy
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+#
+#  release:
+#    needs: [build-jar, build-macos, build-windows]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Install XML parsing tools
+#        run: sudo apt install libxml2-utils
+#
+#      - name: Install jq
+#        run: sudo apt-get install jq
+#
+#      - name: Download Geoweaver Artifacts
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: geoweaver-artifacts
+#
+#      - name: Download Windows Installer Artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: geoweaver-windows-installer
+#
+#      # - name: Download .dmg file
+#      #   uses: actions/download-artifact@v2
+#      #   with:
+#      #     name: geoweaver-dmg
+#
+#      - name: Get ID and upload URL of the latest release
+#        run: |
+#          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/${{ github.repository }}/releases/latest")
+#          UPLOAD_URL=$(echo "$RESPONSE" | jq -r .upload_url)
+#          RELEASE_ID=$(echo "$RESPONSE" | jq -r .id)
+#          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+#          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+#
+#      - name: Set release title to version
+#        run: |
+#          curl -X PATCH \
+#            -H "Authorization: token ${{ secrets.PAT }}" \
+#            -H "Accept: application/vnd.github.v3+json" \
+#            https://api.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }} \
+#            -d '{"name": "${{ env.VERSION }}"}'
+#
+#      - name: Upload JAR Asset
+#        uses: actions/upload-release-asset@v1
+#        with:
+#          upload_url: ${{ env.UPLOAD_URL }}
+#          asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/target/geoweaver.jar
+#          asset_name: geoweaver.jar
+#          asset_content_type: application/java-archive
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PAT }}
+#
+#      # - name: Upload DEB Asset
+#      #   uses: actions/upload-release-asset@v1
+#      #   with:
+#      #     upload_url: ${{ env.UPLOAD_URL }}
+#      #     asset_path: /home/runner/work/geoweaver-deployment-test/geoweaver-deployment-test/linux-deployment/geoweaver.deb
+#      #     asset_name: geoweaver.deb
+#      #     asset_content_type: application/vnd.debian.binary-package
+#      #   env:
+#      #     GITHUB_TOKEN: ${{ secrets.PAT }}
+#
+#      - name: Upload Windows Installer to Release
+#        uses: actions/upload-release-asset@v1
+#        with:
+#          upload_url: ${{ env.UPLOAD_URL }}
+#          asset_path: GeoweaverInstaller.exe
+#          asset_name: GeoweaverInstaller.exe
+#          asset_content_type: application/vnd.microsoft.portable-executable
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PAT }}
+#
+#      # - name: Upload .dmg file to Release
+#      #   uses: actions/upload-release-asset@v1
+#      #   with:
+#      #     upload_url: ${{ env.UPLOAD_URL }}
+#      #     asset_path: Geoweaver.dmg
+#      #     asset_name: Geoweaver.dmg
+#      #     asset_content_type: application/x-diskcopy
+#      #   env:
+#      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
