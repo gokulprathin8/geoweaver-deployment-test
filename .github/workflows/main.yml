@@ -33,6 +33,33 @@ jobs:
             echo "Tests failed."
             exit 1  # Exit with an error code to stop the workflow
           fi
+      set-latest-release:
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Latest Release
+        run: |
+          OWNER=${{ github.repository_owner }}
+          REPO=${{ github.repository }}
+
+          # Get the ID of the latest published draft release
+          RELEASE_ID=$(curl -s -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/${OWNER}/${REPO}/releases" | jq -r '.[] | select(.draft == true and .published_at != null) | .id')
+
+          if [ -n "$RELEASE_ID" ]; then
+            # Publish the draft release to make it the latest release
+            curl -X PATCH \
+              -H "Authorization: token ${{ secrets.PAT }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${OWNER}/${REPO}/releases/$RELEASE_ID" \
+              -d '{"draft":false}'
+          else
+            echo "No published draft release found to set as the latest release."
+          fi
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
 #  build-jar:
 #    runs-on: ubuntu-latest
 #
